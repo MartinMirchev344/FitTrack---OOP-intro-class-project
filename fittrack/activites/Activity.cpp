@@ -1,6 +1,4 @@
 #include "Activity.h"
-#include<stdexcept>
-
 
 Activity::Activity(const std::string& date, double dur, double cal): date(date), duration(dur),calories(cal) {
     if(date == "")
