@@ -1,9 +1,14 @@
 #include "Activity.h"
+#include <iomanip>
+#include <sstream>
 
 Activity::Activity(const std::string& date, double dur, double cal): date(date), duration(dur),calories(cal) {
-    if(date == "")
+    std::tm parsedDate = {};
+    std::istringstream dateStream(date);
+    dateStream >> std::get_time(&parsedDate, "%Y-%m-%d");
+    if(date.empty() || dateStream.fail() || !dateStream.eof())
     {
-        throw std::invalid_argument("Date cannot be empty");
+        throw std::invalid_argument("Date must use the YYYY-MM-DD format");
     }
     if(dur <= 0)
     {
@@ -21,9 +26,6 @@ int Activity::getDuration() const{ return duration; }
 std::string Activity::getDate() const{ return date; }
 
 std::ostream& operator<<(std::ostream& out, const Activity& a){
-    out << a.date << "\n" << 
-    a.duration << "min\n" <<
-    a.calories << "cal\n";
-    
+    out << a.describe();
     return out;
 }

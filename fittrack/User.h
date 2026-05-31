@@ -8,18 +8,26 @@ class User {
 private:
     std::string username;
     std::string password;
+    int age;
+    double weight;
+    double height;
     std::vector<Activity*> activities;
     //Goal* goal;
 
 public:
-    User(const std::string& username, const std::string& password);
+    User(const std::string& username, const std::string& password, int age, double weight, double height);
     ~User();
 
     void addActivity(Activity* a);
     void printHistory() const;
     void printStats() const;
+    double getTotalCaloriesForLastDays(int days) const;
+    int getActivityCountForLastDays(int days) const;
 
     std::string getUsername() const;
     std::string getPassword() const;
+    int getAge() const;
+    double getWeight() const;
+    double getHeight() const;
     //void setGoal(Goal* g);
 };

@@ -24,10 +24,15 @@ int main() {
 
         if (choice == 1) {
             string username, password;
+            int age;
+            double weight, height;
             cout << "Username: "; cin >> username;
             cout << "Password: "; cin >> password;
+            cout << "Age: "; cin >> age;
+            cout << "Weight (kg): "; cin >> weight;
+            cout << "Height (cm): "; cin >> height;
             delete currentUser;
-            currentUser = new User(username, password);
+            currentUser = new User(username, password, age, weight, height);
             cout << "Registration successful.\n";
         }
         else if (choice == 2) {
