@@ -59,27 +59,47 @@ void User::addActivity(Activity* a) {
 }
 
 void User::printHistory() const {
-    for(auto a : activities){
-        std::cout << *a << "\n";
+    std::vector<Activity*> sortedActivities = activities;
+
+    for (int i = 0; i < sortedActivities.size(); i++) {
+        for (int j = i + 1; j < sortedActivities.size(); j++) {
+            if (sortedActivities[i]->getDate() > sortedActivities[j]->getDate()) {
+                Activity* temp = sortedActivities[i];
+                sortedActivities[i] = sortedActivities[j];
+                sortedActivities[j] = temp;
+            }
+        }
+    }
+
+    for(auto activity : sortedActivities){
+        std::cout << *activity << "\n";
     }
 }
 
-void User::printStats() const {
-    double totalCal = 0, totalDur = 0;
+void User::printStats(int days) const {
+    if (days <= 0) {
+        throw std::invalid_argument("Period must be a positive number of days");
+    }
 
-    if (activities.size() == 0) {
-        std::cout << "No activities yet.\n";
+    double totalCal = 0, totalDur = 0;
+    int activityCount = 0;
+
+    for(auto activity : activities){
+        if (isWithinLastDays(activity, days)) {
+            totalCal += activity->getCalories();
+            totalDur += activity->getDuration();
+            activityCount++;
+        }
+    }
+
+    if (activityCount == 0) {
+        std::cout << "No activities for this period.\n";
         return;
     }
 
-    for(auto a : activities){
-        totalCal += a->getCalories();
-        totalDur += a->getDuration();
-    }
-
     std::cout << "Total calories: " << totalCal << " cal\n"
-    << "Number of activities(training sessions): " << activities.size() << "\n"
-    << "Average duration: " << totalDur/activities.size();
+    << "Number of activities(training sessions): " << activityCount << "\n"
+    << "Average duration: " << totalDur/activityCount;
 }
 
 double User::getTotalCaloriesForLastDays(int days) const {

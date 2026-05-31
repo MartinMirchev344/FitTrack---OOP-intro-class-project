@@ -20,7 +20,7 @@ public:
 
     void addActivity(Activity* a);
     void printHistory() const;
-    void printStats() const;
+    void printStats(int days) const;
     double getTotalCaloriesForLastDays(int days) const;
     int getActivityCountForLastDays(int days) const;
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include "FitnessTracker.h"
 #include "activities/CardioActivity.h"
@@ -26,9 +27,16 @@ int main() {
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
+        if (!cin) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input.\n";
+            continue;
+        }
 
         if (choice == 0) break;
 
+        try {
         if (choice == 1) {
             string username, password;
             int age;
@@ -38,6 +46,7 @@ int main() {
             cout << "Age: "; cin >> age;
             cout << "Weight (kg): "; cin >> weight;
             cout << "Height (cm): "; cin >> height;
+            if (!cin) throw invalid_argument("Invalid input");
             tracker.registerUser(username, password, age, weight, height);
             cout << "Registration successful.\n";
         }
@@ -59,19 +68,24 @@ int main() {
             if (!currentUser) { cout << "Please login first.\n"; continue; }
             int type;
             cout << "1. Cardio  2. Strength: "; cin >> type;
+            if (!cin) throw invalid_argument("Invalid input");
+            if (type != 1 && type != 2) throw invalid_argument("Invalid workout type");
             string date; double dur, cal;
             cout << "Date: "; cin >> date;
             cout << "Duration (min): "; cin >> dur;
             cout << "Calories: "; cin >> cal;
+            if (!cin) throw invalid_argument("Invalid input");
             if (type == 1) {
                 double dist;
                 cout << "Distance (km): "; cin >> dist;
+                if (!cin) throw invalid_argument("Invalid input");
                 currentUser->addActivity(new CardioActivity(date, dur, cal, dist));
             } else {
                 string name; int sets, reps;
                 cout << "Exercise: "; cin >> name;
                 cout << "Sets: "; cin >> sets;
                 cout << "Reps: "; cin >> reps;
+                if (!cin) throw invalid_argument("Invalid input");
                 currentUser->addActivity(new StrengthActivity(date, dur, cal, name, sets, reps));
             }
             cout << "Workout added.\n";
@@ -82,20 +96,27 @@ int main() {
         }
         else if (choice == 6) {
             if (!currentUser) { cout << "Please login first.\n"; continue; }
-            currentUser->printStats();
+            int days;
+            cout << "Period (days): "; cin >> days;
+            if (!cin) throw invalid_argument("Invalid input");
+            currentUser->printStats(days);
         }
         else if (choice == 7) {
             if (!currentUser) { cout << "Please login first.\n"; continue; }
             int type, days;
             cout << "1. Calorie goal  2. Frequency goal: "; cin >> type;
             cout << "Period (days): "; cin >> days;
+            if (!cin) throw invalid_argument("Invalid input");
+            if (type != 1 && type != 2) throw invalid_argument("Invalid goal type");
             if (type == 1) {
                 double calories;
                 cout << "Target calories: "; cin >> calories;
+                if (!cin) throw invalid_argument("Invalid input");
                 currentUser->setGoal(new CalorieGoal(calories, days));
             } else {
                 int sessions;
                 cout << "Target training sessions: "; cin >> sessions;
+                if (!cin) throw invalid_argument("Invalid input");
                 currentUser->setGoal(new FrequencyGoal(sessions, days));
             }
             cout << "Goal set.\n";
@@ -103,6 +124,12 @@ int main() {
         else if (choice == 8) {
             if (!currentUser) { cout << "Please login first.\n"; continue; }
             currentUser->printGoalProgress();
+        }
+        }
+        catch (const invalid_argument& error) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Error: " << error.what() << "\n";
         }
     }
 
