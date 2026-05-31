@@ -120,3 +120,28 @@ void User::setGoal(Goal* g) {
     delete goal;
     goal = g;
 }
+
+bool User::hasGoal() const {
+    return goal != nullptr;
+}
+
+bool User::checkGoal() const {
+    if (!hasGoal()) {
+        return false;
+    }
+    return goal->isAchieved(this);
+}
+
+void User::printGoalProgress() const {
+    if (!hasGoal()) {
+        std::cout << "No goal set.\n";
+        return;
+    }
+
+    std::cout << goal->describe() << "\n";
+    if (checkGoal()) {
+        std::cout << "Goal achieved.\n";
+    } else {
+        std::cout << "Goal not achieved yet.\n";
+    }
+}

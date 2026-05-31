@@ -30,4 +30,7 @@ public:
     double getWeight() const;
     double getHeight() const;
     void setGoal(Goal* g);
+    bool hasGoal() const;
+    bool checkGoal() const;
+    void printGoalProgress() const;
 };

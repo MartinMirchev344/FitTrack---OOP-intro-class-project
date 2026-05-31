@@ -19,6 +19,7 @@ int main() {
         cout << "3. History\n";
         cout << "4. Stats\n";
         cout << "5. Set goal\n";
+        cout << "6. Check goal progress\n";
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
@@ -82,6 +83,10 @@ int main() {
                 currentUser->setGoal(new FrequencyGoal(sessions, days));
             }
             cout << "Goal set.\n";
+        }
+        else if (choice == 6) {
+            if (!currentUser) { cout << "Please register first.\n"; continue; }
+            currentUser->printGoalProgress();
         }
     }
 
