@@ -12,7 +12,7 @@ private:
     double weight;
     double height;
     std::vector<Activity*> activities;
-    //Goal* goal;
+    Goal* goal;
 
 public:
     User(const std::string& username, const std::string& password, int age, double weight, double height);
@@ -29,5 +29,5 @@ public:
     int getAge() const;
     double getWeight() const;
     double getHeight() const;
-    //void setGoal(Goal* g);
+    void setGoal(Goal* g);
 };

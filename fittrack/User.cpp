@@ -36,7 +36,7 @@ bool isWithinLastDays(const Activity* activity, int days) {
 }
 
 User::User(const std::string& username, const std::string& password, int age, double weight, double height)
-    : username(username), password(password), age(age), weight(weight), height(height) {
+    : username(username), password(password), age(age), weight(weight), height(height), goal(nullptr) {
     if (username.empty()) {
         throw std::invalid_argument("Username cannot be empty");
     }
@@ -51,6 +51,7 @@ User::~User() {
     for (auto activity : activities) {
         delete activity;
     }
+    delete goal;
 }
 
 void User::addActivity(Activity* a) {
@@ -114,3 +115,8 @@ std::string User::getPassword() const { return password; }
 int User::getAge() const { return age; }
 double User::getWeight() const { return weight; }
 double User::getHeight() const { return height; }
+
+void User::setGoal(Goal* g) {
+    delete goal;
+    goal = g;
+}

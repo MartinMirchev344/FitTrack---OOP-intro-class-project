@@ -3,6 +3,8 @@
 #include "User.h"
 #include "activities/CardioActivity.h"
 #include "activities/StrengthActivity.h"
+#include "goals/CalorieGoal.h"
+#include "goals/FrequencyGoal.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ int main() {
         cout << "2. Add workout\n";
         cout << "3. History\n";
         cout << "4. Stats\n";
+        cout << "5. Set goal\n";
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
@@ -63,6 +66,22 @@ int main() {
         else if (choice == 4) {
             if (!currentUser) { cout << "Please register first.\n"; continue; }
             currentUser->printStats();
+        }
+        else if (choice == 5) {
+            if (!currentUser) { cout << "Please register first.\n"; continue; }
+            int type, days;
+            cout << "1. Calorie goal  2. Frequency goal: "; cin >> type;
+            cout << "Period (days): "; cin >> days;
+            if (type == 1) {
+                double calories;
+                cout << "Target calories: "; cin >> calories;
+                currentUser->setGoal(new CalorieGoal(calories, days));
+            } else {
+                int sessions;
+                cout << "Target training sessions: "; cin >> sessions;
+                currentUser->setGoal(new FrequencyGoal(sessions, days));
+            }
+            cout << "Goal set.\n";
         }
     }
 
