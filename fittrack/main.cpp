@@ -13,6 +13,8 @@ int main() {
     FitnessTracker tracker;
     int choice;
 
+    tracker.loadFromFile("data.txt");
+
     while (true) {
         User* currentUser = tracker.getCurrentUser();
         cout << "\n=== FitTrack ===\n";
@@ -133,5 +135,6 @@ int main() {
         }
     }
 
+    tracker.saveToFile("data.txt");
     return 0;
 }

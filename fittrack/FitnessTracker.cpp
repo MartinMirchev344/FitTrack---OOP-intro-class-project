@@ -4,6 +4,7 @@
 #include "goals/CalorieGoal.h"
 #include "goals/FrequencyGoal.h"
 #include <fstream>
+#include <sstream>
 #include <stdexcept>
 
 FitnessTracker::FitnessTracker() : currentUser(nullptr) {}
@@ -87,4 +88,64 @@ void FitnessTracker::saveToFile(const std::string& filename) const {
     }
 
     outFile.close();
+}
+
+void FitnessTracker::loadFromFile(const std::string& filename) {
+    std::ifstream inFile(filename);
+    if (!inFile.is_open()) {
+        return;
+    }
+
+    for (auto user : users) {
+        delete user;
+    }
+    users.clear();
+    currentUser = nullptr;
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::istringstream lineStream(line);
+        std::string recordType;
+        lineStream >> recordType;
+
+        if (recordType == "USER") {
+            std::string username, password;
+            int age;
+            double weight, height;
+            lineStream >> username >> password >> age >> weight >> height;
+            registerUser(username, password, age, weight, height);
+        } else if (recordType == "GOAL") {
+            std::string goalType;
+            lineStream >> goalType;
+
+            if (goalType == "CALORIE") {
+                double targetCalories;
+                int periodDays;
+                lineStream >> targetCalories >> periodDays;
+                currentUser->setGoal(new CalorieGoal(targetCalories, periodDays));
+            } else if (goalType == "FREQUENCY") {
+                int targetSessions, periodDays;
+                lineStream >> targetSessions >> periodDays;
+                currentUser->setGoal(new FrequencyGoal(targetSessions, periodDays));
+            }
+        } else if (recordType == "ACTIVITY") {
+            std::string activityType, date;
+            double duration, calories;
+            lineStream >> activityType >> date >> duration >> calories;
+
+            if (activityType == "CARDIO") {
+                double distance;
+                lineStream >> distance;
+                currentUser->addActivity(new CardioActivity(date, duration, calories, distance));
+            } else if (activityType == "STRENGTH") {
+                std::string exerciseName;
+                int sets, reps;
+                lineStream >> exerciseName >> sets >> reps;
+                currentUser->addActivity(new StrengthActivity(date, duration, calories, exerciseName, sets, reps));
+            }
+        }
+    }
+
+    logout();
+    inFile.close();
 }
