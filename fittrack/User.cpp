@@ -61,8 +61,8 @@ void User::addActivity(Activity* a) {
 void User::printHistory() const {
     std::vector<Activity*> sortedActivities = activities;
 
-    for (int i = 0; i < sortedActivities.size(); i++) {
-        for (int j = i + 1; j < sortedActivities.size(); j++) {
+    for (size_t i = 0; i < sortedActivities.size(); i++) {
+        for (size_t j = i + 1; j < sortedActivities.size(); j++) {
             if (sortedActivities[i]->getDate() > sortedActivities[j]->getDate()) {
                 Activity* temp = sortedActivities[i];
                 sortedActivities[i] = sortedActivities[j];
