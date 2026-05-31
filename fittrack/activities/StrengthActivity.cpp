@@ -12,8 +12,8 @@ StrengthActivity::StrengthActivity(const std::string& date, double dur, double c
         throw std::invalid_argument("Sets and/or reps cannot be less than 1");
     }
 }
-int StrengthActivity::getsets() const{ return sets; }
-int StrengthActivity::getreps() const{ return reps;}
+int StrengthActivity::getSets() const{ return sets; }
+int StrengthActivity::getReps() const{ return reps;}
 std::string StrengthActivity::getExerciseName() const{ return exerciseName; }
 
 std::string StrengthActivity::getType() const{ return "Strength"; }

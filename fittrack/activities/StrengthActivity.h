@@ -9,8 +9,8 @@ private:
 
 public:
     StrengthActivity(const std::string& date, double dur, double cal, const std::string& exerciseName, int sets, int reps);
-    int getsets() const;
-    int getreps() const;
+    int getSets() const;
+    int getReps() const;
     std::string getExerciseName() const;
     std::string getType() const override;
     std::string describe() const override;

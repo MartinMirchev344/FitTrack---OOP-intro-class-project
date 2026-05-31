@@ -78,8 +78,8 @@ void FitnessTracker::saveToFile(const std::string& filename) const {
                 StrengthActivity* strength = static_cast<StrengthActivity*>(activity);
                 outFile << "ACTIVITY STRENGTH " << strength->getDate() << " "
                         << strength->getDuration() << " " << strength->getCalories() << " "
-                        << strength->getExerciseName() << " " << strength->getsets() << " "
-                        << strength->getreps() << "\n";
+                        << strength->getExerciseName() << " " << strength->getSets() << " "
+                        << strength->getReps() << "\n";
             }
         }
 

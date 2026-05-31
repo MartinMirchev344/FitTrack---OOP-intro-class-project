@@ -99,7 +99,7 @@ void User::printStats(int days) const {
 
     std::cout << "Total calories: " << totalCal << " cal\n"
     << "Number of activities(training sessions): " << activityCount << "\n"
-    << "Average duration: " << totalDur/activityCount;
+    << "Average duration: " << totalDur/activityCount << "\n";
 }
 
 double User::getTotalCaloriesForLastDays(int days) const {
