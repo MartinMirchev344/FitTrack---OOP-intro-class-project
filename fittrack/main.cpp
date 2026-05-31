@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "User.h"
+#include "FitnessTracker.h"
 #include "activities/CardioActivity.h"
 #include "activities/StrengthActivity.h"
 #include "goals/CalorieGoal.h"
@@ -9,17 +9,20 @@
 using namespace std;
 
 int main() {
-    User* currentUser = nullptr;
+    FitnessTracker tracker;
     int choice;
 
     while (true) {
+        User* currentUser = tracker.getCurrentUser();
         cout << "\n=== FitTrack ===\n";
         cout << "1. Register\n";
-        cout << "2. Add workout\n";
-        cout << "3. History\n";
-        cout << "4. Stats\n";
-        cout << "5. Set goal\n";
-        cout << "6. Check goal progress\n";
+        cout << "2. Login\n";
+        cout << "3. Logout\n";
+        cout << "4. Add workout\n";
+        cout << "5. History\n";
+        cout << "6. Stats\n";
+        cout << "7. Set goal\n";
+        cout << "8. Check goal progress\n";
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
@@ -35,12 +38,25 @@ int main() {
             cout << "Age: "; cin >> age;
             cout << "Weight (kg): "; cin >> weight;
             cout << "Height (cm): "; cin >> height;
-            delete currentUser;
-            currentUser = new User(username, password, age, weight, height);
+            tracker.registerUser(username, password, age, weight, height);
             cout << "Registration successful.\n";
         }
         else if (choice == 2) {
-            if (!currentUser) { cout << "Please register first.\n"; continue; }
+            string username, password;
+            cout << "Username: "; cin >> username;
+            cout << "Password: "; cin >> password;
+            if (tracker.login(username, password)) {
+                cout << "Login successful.\n";
+            } else {
+                cout << "Incorrect username or password.\n";
+            }
+        }
+        else if (choice == 3) {
+            tracker.logout();
+            cout << "Logged out.\n";
+        }
+        else if (choice == 4) {
+            if (!currentUser) { cout << "Please login first.\n"; continue; }
             int type;
             cout << "1. Cardio  2. Strength: "; cin >> type;
             string date; double dur, cal;
@@ -60,16 +76,16 @@ int main() {
             }
             cout << "Workout added.\n";
         }
-        else if (choice == 3) {
-            if (!currentUser) { cout << "Please register first.\n"; continue; }
+        else if (choice == 5) {
+            if (!currentUser) { cout << "Please login first.\n"; continue; }
             currentUser->printHistory();
         }
-        else if (choice == 4) {
-            if (!currentUser) { cout << "Please register first.\n"; continue; }
+        else if (choice == 6) {
+            if (!currentUser) { cout << "Please login first.\n"; continue; }
             currentUser->printStats();
         }
-        else if (choice == 5) {
-            if (!currentUser) { cout << "Please register first.\n"; continue; }
+        else if (choice == 7) {
+            if (!currentUser) { cout << "Please login first.\n"; continue; }
             int type, days;
             cout << "1. Calorie goal  2. Frequency goal: "; cin >> type;
             cout << "Period (days): "; cin >> days;
@@ -84,12 +100,11 @@ int main() {
             }
             cout << "Goal set.\n";
         }
-        else if (choice == 6) {
-            if (!currentUser) { cout << "Please register first.\n"; continue; }
+        else if (choice == 8) {
+            if (!currentUser) { cout << "Please login first.\n"; continue; }
             currentUser->printGoalProgress();
         }
     }
 
-    delete currentUser;
     return 0;
 }
