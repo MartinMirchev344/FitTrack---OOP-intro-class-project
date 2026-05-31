@@ -22,7 +22,7 @@ Activity::Activity(const std::string& date, double dur, double cal): date(date),
 Activity::~Activity(){}
 
 double Activity::getCalories() const{ return calories; }
-int Activity::getDuration() const{ return duration; }
+double Activity::getDuration() const{ return duration; }
 std::string Activity::getDate() const{ return date; }
 
 std::ostream& operator<<(std::ostream& out, const Activity& a){

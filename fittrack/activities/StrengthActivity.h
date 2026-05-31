@@ -12,8 +12,8 @@ public:
     int getsets() const;
     int getreps() const;
     std::string getExerciseName() const;
-    std::string getType() const;
-    std::string describe() const;
+    std::string getType() const override;
+    std::string describe() const override;
 
     StrengthActivity& operator=(const StrengthActivity& other);
     friend std::ostream& operator<<(std::ostream& out, const StrengthActivity& ca);

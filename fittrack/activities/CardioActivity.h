@@ -8,8 +8,8 @@ private:
 public:
     CardioActivity(const std::string& date, double dur, double cal, double dist);
     double getDistance() const;
-    std::string getType() const;
-    std::string describe() const;
+    std::string getType() const override;
+    std::string describe() const override;
     
     CardioActivity& operator=(const CardioActivity& other);
     friend std::ostream& operator<<(std::ostream& out, const CardioActivity& ca);

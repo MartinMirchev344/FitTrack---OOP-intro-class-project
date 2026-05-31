@@ -15,7 +15,7 @@ public:
     virtual std::string getType() const = 0;
     virtual std::string describe() const = 0;
     double getCalories() const;
-    int getDuration() const;
+    double getDuration() const;
     std::string getDate() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Activity& a);

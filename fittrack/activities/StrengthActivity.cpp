@@ -2,7 +2,7 @@
 #include<sstream>
 
 StrengthActivity::StrengthActivity(const std::string& date, double dur, double cal, const std::string& exerciseName, int sets, int reps)
-:Activity(date, dur, cal), exerciseName(exerciseName), sets(sets), reps(reps) {
+:Activity(date, dur, cal), sets(sets), reps(reps), exerciseName(exerciseName) {
     if(exerciseName == "")
     {
         throw std::invalid_argument("Exercise name cannot be empty");
@@ -45,7 +45,7 @@ StrengthActivity& StrengthActivity::operator=(const StrengthActivity& other){
 }
 
 std::ostream& operator<<(std::ostream& out, const StrengthActivity& sa){
-    out << "[Strentgh] " << sa.date << " | "
+    out << "[Strength] " << sa.date << " | "
     << sa.duration << " min | "
     << sa.calories << " cal | "
     << sa.exerciseName << " "
@@ -56,7 +56,8 @@ std::ostream& operator<<(std::ostream& out, const StrengthActivity& sa){
 
 std::istream& operator>>(std::istream& in, StrengthActivity& sa){
     std::string type, date, name;
-    double dur, cal, sets, reps;
+    double dur, cal;
+    int sets, reps;
 
     if(in >> type >> date >> dur >> cal >> name >> sets >> reps)
     {
