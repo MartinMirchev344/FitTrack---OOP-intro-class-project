@@ -10,6 +10,10 @@ CalorieGoal::CalorieGoal(double targetCalories, int periodDays)
     }
 }
 
+std::string CalorieGoal::getType() const {
+    return "Calorie";
+}
+
 bool CalorieGoal::isAchieved(const User* user) const {
     return user->getTotalCaloriesForLastDays(periodDays) >= targetValue;
 }
@@ -19,4 +23,8 @@ std::string CalorieGoal::describe() const {
     output << description << ": burn " << targetValue
            << " calories in " << periodDays << " days";
     return output.str();
+}
+
+int CalorieGoal::getPeriodDays() const {
+    return periodDays;
 }

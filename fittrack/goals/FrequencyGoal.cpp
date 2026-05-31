@@ -10,6 +10,10 @@ FrequencyGoal::FrequencyGoal(int targetSessions, int periodDays)
     }
 }
 
+std::string FrequencyGoal::getType() const {
+    return "Frequency";
+}
+
 bool FrequencyGoal::isAchieved(const User* user) const {
     return user->getActivityCountForLastDays(periodDays) >= targetValue;
 }
@@ -19,4 +23,8 @@ std::string FrequencyGoal::describe() const {
     output << description << ": complete " << targetValue
            << " training sessions in " << periodDays << " days";
     return output.str();
+}
+
+int FrequencyGoal::getPeriodDays() const {
+    return periodDays;
 }

@@ -14,6 +14,7 @@ StrengthActivity::StrengthActivity(const std::string& date, double dur, double c
 }
 int StrengthActivity::getsets() const{ return sets; }
 int StrengthActivity::getreps() const{ return reps;}
+std::string StrengthActivity::getExerciseName() const{ return exerciseName; }
 
 std::string StrengthActivity::getType() const{ return "Strength"; }
 std::string StrengthActivity::describe() const{

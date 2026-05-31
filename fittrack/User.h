@@ -29,6 +29,8 @@ public:
     int getAge() const;
     double getWeight() const;
     double getHeight() const;
+    const std::vector<Activity*>& getActivities() const;
+    Goal* getGoal() const;
     void setGoal(Goal* g);
     bool hasGoal() const;
     bool checkGoal() const;

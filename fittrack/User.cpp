@@ -115,6 +115,8 @@ std::string User::getPassword() const { return password; }
 int User::getAge() const { return age; }
 double User::getWeight() const { return weight; }
 double User::getHeight() const { return height; }
+const std::vector<Activity*>& User::getActivities() const { return activities; }
+Goal* User::getGoal() const { return goal; }
 
 void User::setGoal(Goal* g) {
     delete goal;
