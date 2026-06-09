@@ -44,16 +44,6 @@ StrengthActivity& StrengthActivity::operator=(const StrengthActivity& other){
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& out, const StrengthActivity& sa){
-    out << "[Strength] " << sa.date << " | "
-    << sa.duration << " min | "
-    << sa.calories << " cal | "
-    << sa.exerciseName << " "
-    << sa.sets << "x" << sa.reps;
-
-    return out;
-}
-
 std::istream& operator>>(std::istream& in, StrengthActivity& sa){
     std::string type, date, name;
     double dur, cal;

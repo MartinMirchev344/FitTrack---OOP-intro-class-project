@@ -36,11 +36,6 @@ CardioActivity& CardioActivity::operator=(const CardioActivity& other){
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& out, const CardioActivity& ca){
-    out << ca.getType() << " " << ca.date << " " << ca.duration << " " << ca.calories << " " << ca.distance;
-    return out;
-}
-
 std::istream& operator>>(std::istream& in, CardioActivity& ca){
     std::string type, date;
     double dur, cal, dist;

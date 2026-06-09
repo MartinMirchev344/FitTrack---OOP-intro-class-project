@@ -12,6 +12,5 @@ public:
     std::string describe() const override;
     
     CardioActivity& operator=(const CardioActivity& other);
-    friend std::ostream& operator<<(std::ostream& out, const CardioActivity& ca);
     friend std::istream& operator>>(std::istream& in, CardioActivity& ca);
 };

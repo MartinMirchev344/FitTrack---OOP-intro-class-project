@@ -16,6 +16,5 @@ public:
     std::string describe() const override;
 
     StrengthActivity& operator=(const StrengthActivity& other);
-    friend std::ostream& operator<<(std::ostream& out, const StrengthActivity& ca);
     friend std::istream& operator>>(std::istream& in, StrengthActivity& ca);
 };
